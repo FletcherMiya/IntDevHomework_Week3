@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     bool jump = false;
     bool doublejump = true;
+
+    Vector3 startpos = new Vector3(-11.2f, 0.81f, 0f);
     // Start is called before the first frame update
     void Start()
     {
@@ -62,12 +64,9 @@ public class PlayerMovement : MonoBehaviour
             grounded = false;
         }
 
-        if(Input.GetAxis("Horizontal") != 0 && rb.velocity.x != 0)
+        if(transform.position.y < -10)
         {
-            if(rb.velocity.x > 0)
-            {
-                
-            }
+            transform.position = startpos;
         }
 
     }
@@ -75,10 +74,10 @@ public class PlayerMovement : MonoBehaviour
     void HorizontalMove(float toMove)
     {
         float moveX = toMove * Time.fixedDeltaTime * force;
-        //rb.velocity = new Vector3(moveX, rb.velocity.y);
-        if(Mathf.Abs(rb.velocity.x) < speedLimit)
+        rb.velocity = new Vector3(moveX, rb.velocity.y);
+        /*if(Mathf.Abs(rb.velocity.x) < speedLimit)
         {
             rb.AddForce(transform.right * moveX, ForceMode2D.Impulse);
-        }
+        }*/
     }
 }
